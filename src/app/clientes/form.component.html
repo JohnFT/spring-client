@@ -1,0 +1,126 @@
+<ul class="alert-danger" *ngIf="errors.length">
+  <li *ngFor="let err of errors">
+    {{ err }}
+  </li>
+</ul>
+
+<div class="card bg-dark text-white">
+  <div class="card-header">{{ title }}</div>
+  <div class="card-body">
+    <form #clientForm="ngForm">
+      <div class="form-group row">
+        <label for="firstName" class="col-form-label col-sm-2">FirstName</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="client.firstName"
+            name="firstName"
+            minlength="4"
+            required
+            #firstName="ngModel"
+          />
+          <div
+            *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="firstName.errors['required']">
+              field is required
+            </div>
+            <div *ngIf="firstName.errors['minlength']">
+              field min 4 letters
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="lastName" class="col-form-label col-sm-2">LastName</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="client.lastName"
+            name="lastName"
+            required
+            #lastName="ngModel"
+          />
+          <div
+            *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="lastName.errors['required']">
+              field is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="email" class="col-form-label col-sm-2">Email</label>
+        <div class="col-sm-6">
+          <input
+            type="email"
+            class="form-control"
+            [(ngModel)]="client.email"
+            name="email"
+            required
+            #email="ngModel"
+          />
+          <div
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="email.errors['required']">
+              field is required
+            </div>
+            <div *ngIf="email.errors['email']">
+              email not valid
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="createAt" class="col-form-label col-sm-2">CrateAt</label>
+        <div class="col-sm-6">
+          
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Choose a date"
+            [(ngModel)]="client.createAt"
+            name="createAt"
+            #createAt
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <div
+            *ngIf="createAt.invalid && (createAt.dirty || createAt.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="createAt.errors['required']">
+              field is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button
+            class="btn-primary"
+            role="button"
+            [disabled]="!clientForm.form.valid"
+            (click)="create()"
+          >
+            crear
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

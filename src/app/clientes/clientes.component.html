@@ -1,0 +1,76 @@
+<detail-client [client]="client"></detail-client>
+
+<div class="card border-primary mb-3">
+  <div class="card-header">Clientes</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de clientes</h5>
+    <div class="my-2 text-left">
+      <button
+        class="btn btn-rounded btn-primary"
+        [routerLink]="['/', 'clients', 'form']"
+      >
+        Add Client
+      </button>
+    </div>
+
+    <table
+      class="table table-bordered table-striped"
+      *ngIf="clientes && clientes.length"
+    >
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>FirstName</th>
+          <th>LastName</th>
+          <th>Email</th>
+          <th>Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>
+            <img
+              *ngIf="cliente.avatar"
+              [src]="'http://localhost:8080/api/uploads/img/' + cliente.avatar"
+              alt="client img"
+              width="64px"
+              style="cursor: pointer"
+              (click)="openModal(cliente)"
+            />
+            <img
+              *ngIf="!cliente.avatar"
+              src="http://localhost:8080/images/notUser.png"
+              alt="client img"
+              width="64px"
+              style="cursor: pointer"
+              (click)="openModal(cliente)"
+            />
+          </td>
+          <td>{{ cliente.firstName }}</td>
+          <td>{{ cliente.lastName }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.createAt }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              [routerLink]="['/', 'clients', 'form', cliente.id]"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="delete(cliente)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-paginator [paginator]="paginator" *ngIf="paginator"></app-paginator>
+    <div class="alert alert-info" *ngIf="clientes && !clientes.length">
+      No hay datos
+    </div>
+  </div>
+</div>
