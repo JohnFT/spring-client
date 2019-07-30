@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { CLIENTES } from './clientes.json'
-import { Cliente } from './cliente'
+import { Cliente, Region } from './cliente'
 import {
   HttpClient,
   HttpHeaders,
@@ -25,6 +25,11 @@ export class ClienteService {
   getClients(page: number): Observable<any[]> {
     return this.http.get<any[]>(this.urlEndPoint + '/page/' + page)
   }
+
+  getRegions(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regions')
+  }
+
 
   getById(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(this.urlEndPoint + '/' + id).pipe(

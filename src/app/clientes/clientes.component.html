@@ -23,6 +23,7 @@
           <th>FirstName</th>
           <th>LastName</th>
           <th>Email</th>
+          <th>Region</th>
           <th>Date</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -43,7 +44,7 @@
               *ngIf="!cliente.avatar"
               src="http://localhost:8080/images/notUser.png"
               alt="client img"
-              width="64px"
+              width="50px"
               style="cursor: pointer"
               (click)="openModal(cliente)"
             />
@@ -52,6 +53,7 @@
           <td>{{ cliente.lastName }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.createAt }}</td>
+          <td>{{ cliente.region.name }}</td>
           <td>
             <button
               class="btn btn-primary"
